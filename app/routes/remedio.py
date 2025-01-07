@@ -1,23 +1,43 @@
-from fastapi import APIRouter, Depends, HTTPException
-from sqlmodel import Session
-from app.schemas.remedio import Remedio, RemedioCreate
-from app.crud.remedio import create_remedio, get_remedios, get_remedio_by_id
-from app.db import get_db
-
+# app/routes/remedio.py
+from fastapi import APIRouter
+from app.schemas.remedio import RemedioCreate
+from app.crud.remedio import criar_remedio, obter_remedio_por_id, listar_remedios, listar_remedios_por_fornecedor, buscar_remedios_por_nome, listar_remedios_por_ano, contar_remedios, listar_remedios_ordenados, listar_remedios_com_fornecedor
 
 router = APIRouter()
 
-@router.post("/", response_model=Remedio)
-def create(remedio: RemedioCreate, db: Session = Depends(get_db)):
-    return create_remedio(db=db, remedio=remedio)
+@router.get("/remedios/")
+def obter_remedios():
+    return listar_remedios()
 
-@router.get("/", response_model=list[Remedio])
-def read_remedios(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    return get_remedios(db=db, skip=skip, limit=limit)
+@router.get("/remedios/{remedio_id}")
+def obter_remedio(remedio_id: int):
+    return obter_remedio_por_id(remedio_id)
 
-@router.get("/{remedio_id}", response_model=Remedio)
-def read_remedio(remedio_id: int, db: Session = Depends(get_db)):
-    db_remedio = get_remedio_by_id(db=db, remedio_id=remedio_id)
-    if db_remedio is None:
-        raise HTTPException(status_code=404, detail="Remédio não encontrado")
-    return db_remedio
+@router.get("/remedios/fornecedor/{fornecedor_id}")
+def obter_remedios_por_fornecedor(fornecedor_id: int):
+    return listar_remedios_por_fornecedor(fornecedor_id)
+
+@router.get("/remedios/busca")
+def buscar_remedios(nome: str):
+    return buscar_remedios_por_nome(nome)
+
+@router.get("/remedios/validade/{ano}")
+def obter_remedios_por_ano(ano: int):
+    return listar_remedios_por_ano(ano)
+
+@router.get("/remedios/contagem")
+def contar_total_remedios():
+    return {"quantidade": contar_remedios()}
+
+@router.get("/remedios/ordenar")
+def ordenar_remedios(ordenar_por: str = "preco", ordem: str = "asc"):
+    return listar_remedios_ordenados(ordenar_por, ordem)
+
+@router.get("/remedios/com_fornecedor")
+def obter_remedios_com_fornecedor(preco_max: float = 100.0):
+    return listar_remedios_com_fornecedor(preco_max)
+
+@router.post("/remedios/")
+def criar_remedio_endpoint(remedio: RemedioCreate):
+    criar_remedio(remedio)
+    return {"msg": "Remédio criado com sucesso"}

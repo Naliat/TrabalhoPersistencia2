@@ -1,17 +1,10 @@
+# app/schemas/remedio.py
 from pydantic import BaseModel
-from datetime import date
+from datetime import datetime
 
-class RemedioBase(BaseModel):
+class RemedioCreate(BaseModel):
     nome: str
-    tarja: str
     preco: float
-    validade: date
-
-class RemedioCreate(RemedioBase):
-    pass
-
-class Remedio(RemedioBase):
-    id: int
-
-    class Config:
-        orm_mode = True
+    validade: datetime
+    tarja: str
+    fornecedor_id: int

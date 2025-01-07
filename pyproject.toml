@@ -1,14 +1,10 @@
-[project]  
-name = "persistenciatrabalho2"  
-version = "0.1.0"  
-description = "API para gerenciamento de medicamentos"  
-readme = "README.md"  
-requires-python = ">=3.12"  
-
+[project]
+name = "testepersistencia"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
 dependencies = [
-    "fastapi[standard]",
-    "sqlmodel",
-    "uvicorn",
-    "python-dotenv",
-    "pydantic>=2.10.4",
+    "fastapi[standard]>=0.115.6",
+    "sqlmodel>=0.0.22",
 ]

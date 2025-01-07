@@ -1,16 +1,8 @@
+# app/schemas/fornecedor.py
 from pydantic import BaseModel
 
-class FornecedorBase(BaseModel):
+class FornecedorCreate(BaseModel):
     nome_fornecedor: str
     contato: str
     endereco: str
     tipo_produto: str
-
-class FornecedorCreate(FornecedorBase):
-    pass
-
-class Fornecedor(FornecedorBase):
-    ID_Fornecedor: int
-
-    class Config:
-        orm_mode = True

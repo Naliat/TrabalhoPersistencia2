@@ -1,15 +1,23 @@
-from fastapi import APIRouter, Depends, HTTPException
-from sqlmodel import Session
-from app.schemas.fornecedor import Fornecedor, FornecedorCreate
-from app.crud.fornecedor import create_fornecedor, get_fornecedores
-from app.db import get_db
+# app/routes/fornecedor.py
+from fastapi import APIRouter
+from app.schemas.fornecedor import FornecedorCreate
+from app.crud.fornecedor import criar_fornecedor, obter_fornecedor_por_id, listar_fornecedores, contar_fornecedores
 
 router = APIRouter()
 
-@router.post("/", response_model=Fornecedor)
-def create(fornecedor: FornecedorCreate, db: Session = Depends(get_db)):
-    return create_fornecedor(db=db, fornecedor=fornecedor)
+@router.get("/fornecedores/{fornecedor_id}")
+def obter_fornecedor(fornecedor_id: int):
+    return obter_fornecedor_por_id(fornecedor_id)
 
-@router.get("/", response_model=list[Fornecedor])
-def read_fornecedores(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    return get_fornecedores(db=db, skip=skip, limit=limit)
+@router.get("/fornecedores/")
+def obter_fornecedores():
+    return listar_fornecedores()
+
+@router.get("/fornecedores/contagem")
+def contar_total_fornecedores():
+    return {"quantidade": contar_fornecedores()}
+
+@router.post("/fornecedores/")
+def criar_fornecedor_endpoint(fornecedor: FornecedorCreate):
+    criar_fornecedor(fornecedor)
+    return {"msg": "Fornecedor criado com sucesso"}
