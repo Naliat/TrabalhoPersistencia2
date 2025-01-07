@@ -1,10 +1,10 @@
 from sqlmodel import SQLModel, Field
-from typing import Optional
 from datetime import date
 
-class Remédio(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    nome: str
+class Remedio(SQLModel, table=True):
+    id: int = Field(default=None, primary_key=True)
+    nome: str = Field(index=True)
+    descricao: str
     tarja: str
-    preço: float
+    preco: float
     validade: date

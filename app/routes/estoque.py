@@ -1,15 +1,15 @@
-from fastapi import APIRouter, Depends  
-from sqlmodel import Session  
-from app.schemas.estoque import EstoqueCreate, EstoqueRead  
-from app.crud.estoque import create_estoque, get_estoques  
-from app.database import get_session  
+from fastapi import APIRouter, Depends, HTTPException
+from sqlmodel import Session
+from app.schemas.estoque import Estoque, EstoqueCreate
+from app.crud.estoque import create_estoque, get_estoques
+from app.db import get_db
 
-router = APIRouter()  
+router = APIRouter()
 
-@router.post("/estoques/", response_model=EstoqueRead)  
-def create_estoque_endpoint(estoque: EstoqueCreate, session: Session = Depends(get_session)):  
-    return create_estoque(session, estoque)  
+@router.post("/", response_model=Estoque)
+def create(estoque: EstoqueCreate, db: Session = Depends(get_db)):
+    return create_estoque(db=db, estoque=estoque)
 
-@router.get("/estoques/", response_model=List[EstoqueRead])  
-def read_estoques(skip: int = 0, limit: int = 10, session: Session = Depends(get_session)):  
-    return get_estoques(session, skip=skip, limit=limit)
+@router.get("/", response_model=list[Estoque])
+def read_estoques(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    return get_estoques(db=db, skip=skip, limit=limit)

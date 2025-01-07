@@ -1,16 +1,13 @@
 from fastapi import FastAPI
-from sqlmodel import SQLModel, create_engine
-from app.config import settings
-from app.routes import remédio, fornecedor, estoque
+from app.routes import remedio, fornecedor, estoque
 
-app = FastAPI()
+app = FastAPI(title="Gerenciador de Remédios")
 
-engine = create_engine(settings.database_url)
+# Registrar as rotas
+app.include_router(remedio.router, prefix="/remedios", tags=["Remédios"])
+app.include_router(fornecedor.router, prefix="/fornecedores", tags=["Fornecedores"])
+app.include_router(estoque.router, prefix="/estoques", tags=["Estoques"])
 
-@app.on_event("startup")
-def on_startup():
-    SQLModel.metadata.create_all(engine)
-
-app.include_router(remédio.router)
-app.include_router(fornecedor.router)
-app.include_router(estoque.router)
+@app.get("/")
+def root():
+    return {"message": "Bem-vindo ao Gerenciador de Remédios!"}

@@ -1,15 +1,14 @@
-from typing import List, Optional  
-from sqlmodel import Session  
-from app.models.remedio import Remedio  
+from sqlmodel import Session
+from app.models.remedio import Remedio
 
-def create_remedio(session: Session, remedio: Remedio) -> Remedio:  
-    session.add(remedio)  
-    session.commit()  
-    session.refresh(remedio)  
-    return remedio  
+def create_remedio(db: Session, remedio: Remedio):
+    db.add(remedio)
+    db.commit()
+    db.refresh(remedio)
+    return remedio
 
-def get_remedios(session: Session, skip: int = 0, limit: int = 10) -> List[Remedio]:  
-    return session.query(Remedio).offset(skip).limit(limit).all()  
+def get_remedios(db: Session, skip: int = 0, limit: int = 10):
+    return db.query(Remedio).offset(skip).limit(limit).all()
 
-def get_remedio(session: Session, remedio_id: int) -> Optional[Remedio]:  
-    return session.get(Remedio, remedio_id)  
+def get_remedio_by_id(db: Session, remedio_id: int):
+    return db.query(Remedio).filter(Remedio.id == remedio_id).first()

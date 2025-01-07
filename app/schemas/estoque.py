@@ -1,16 +1,17 @@
-from pydantic import BaseModel  
+from pydantic import BaseModel
+from datetime import date
 
-class EstoqueBase(BaseModel):  
-    quantidade: int  
-    data_validade: str  
-    data_entrada_estoque: str  
-    unidade_medida: str  
+class EstoqueBase(BaseModel):
+    quantidade: int
+    data_validade: date
+    data_entrada_estoque: date
+    unidade_medida: str
 
-class EstoqueCreate(EstoqueBase):  
-    remedio_id: int  
+class EstoqueCreate(EstoqueBase):
+    pass
 
-class EstoqueRead(EstoqueBase):  
-    id_do_remedio: int  
+class Estoque(EstoqueBase):
+    id_do_remedio: int
 
-    class Config:  
+    class Config:
         orm_mode = True

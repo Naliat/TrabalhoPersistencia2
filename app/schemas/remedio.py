@@ -1,16 +1,17 @@
-from pydantic import BaseModel  
+from pydantic import BaseModel
+from datetime import date
 
-class RemedioBase(BaseModel):  
-    nome: str  
-    tarja: str  
-    preco: float  
-    validade: str  
+class RemedioBase(BaseModel):
+    nome: str
+    tarja: str
+    preco: float
+    validade: date
 
-class RemedioCreate(RemedioBase):  
-    pass  
+class RemedioCreate(RemedioBase):
+    pass
 
-class RemedioRead(RemedioBase):  
-    id: int  
+class Remedio(RemedioBase):
+    id: int
 
-    class Config:  
+    class Config:
         orm_mode = True

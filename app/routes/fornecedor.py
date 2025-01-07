@@ -1,15 +1,15 @@
-from fastapi import APIRouter, Depends  
-from sqlmodel import Session  
-from app.schemas.fornecedor import FornecedorCreate, FornecedorRead  
-from app.crud.fornecedor import create_fornecedor, get_fornecedores  
-from app.database import get_session  
+from fastapi import APIRouter, Depends, HTTPException
+from sqlmodel import Session
+from app.schemas.fornecedor import Fornecedor, FornecedorCreate
+from app.crud.fornecedor import create_fornecedor, get_fornecedores
+from app.db import get_db
 
-router = APIRouter()  
+router = APIRouter()
 
-@router.post("/fornecedores/", response_model=FornecedorRead)  
-def create_fornecedor_endpoint(fornecedor: FornecedorCreate, session: Session = Depends(get_session)):  
-    return create_fornecedor(session, fornecedor)  
+@router.post("/", response_model=Fornecedor)
+def create(fornecedor: FornecedorCreate, db: Session = Depends(get_db)):
+    return create_fornecedor(db=db, fornecedor=fornecedor)
 
-@router.get("/fornecedores/", response_model=List[FornecedorRead])  
-def read_fornecedores(skip: int = 0, limit: int = 10, session: Session = Depends(get_session)):  
-    return get_fornecedores(session, skip=skip, limit=limit)
+@router.get("/", response_model=list[Fornecedor])
+def read_fornecedores(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    return get_fornecedores(db=db, skip=skip, limit=limit)

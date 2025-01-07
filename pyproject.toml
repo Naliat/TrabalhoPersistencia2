@@ -5,9 +5,10 @@ description = "API para gerenciamento de medicamentos"
 readme = "README.md"  
 requires-python = ">=3.12"  
 
-dependencies = [  
-    "fastapi[standard]",    # Inclui FastAPI e suas dependências padrão  
-    "sqlmodel",             # Para interagir com o banco de dados usando SQLModel  
-    "uvicorn",              # Servidor ASGI para rodar a aplicação  
-    "python-dotenv"         # Para carregar variáveis de ambiente do arquivo .env  
+dependencies = [
+    "fastapi[standard]",
+    "sqlmodel",
+    "uvicorn",
+    "python-dotenv",
+    "pydantic>=2.10.4",
 ]
