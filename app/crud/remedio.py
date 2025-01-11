@@ -1,14 +1,18 @@
 from app.models.remedio import Remedio
 from app.schemas.remedio import RemedioCreate
-from sqlmodel import Session, select
+from sqlmodel import Session
 from app.config import engine
+from app.models.fornecedor import Fornecedor  # Importando o modelo Fornecedor para usar nas consultas
 
 # Função para criar um novo remédio
 def criar_remedio(remedio: RemedioCreate):
     with Session(engine) as session:
+        # Não é necessário passar o ID, ele será gerado automaticamente
         novo_remedio = Remedio(**remedio.dict())
         session.add(novo_remedio)
         session.commit()
+        session.refresh(novo_remedio)  # Atualiza o objeto com o ID gerado
+        return novo_remedio
 
 # Função para obter um remédio pelo ID
 def obter_remedio_por_id(remedio_id: int):
@@ -51,10 +55,15 @@ def listar_remedios_ordenados(ordenar_por: str = "preco", ordem: str = "asc"):
 
 # Função para listar remédios com fornecedor
 def listar_remedios_com_fornecedor(preco_max: float = 100.0):
-    from app.models.fornecedor import Fornecedor
     with Session(engine) as session:
         resultado = session.query(Remedio, Fornecedor).join(Fornecedor).filter(Remedio.preco <= preco_max).all()
     return [{"remedio": r[0], "fornecedor": r[1]} for r in resultado]
+
+# Função para listar fornecedores que fornecem determinado remédio
+def listar_fornecedores_por_remedio(nome_remedio: str):
+    with Session(engine) as session:
+        resultado = session.query(Fornecedor).join(Remedio).filter(Remedio.nome.ilike(f"%{nome_remedio}%")).all()
+    return resultado
 
 # Função para atualizar um remédio
 def atualizar_remedio(remedio_id: int, remedio: RemedioCreate):
