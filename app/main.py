@@ -1,20 +1,30 @@
 from fastapi import FastAPI
-from app.routes import router  # Importando o router do arquivo routes.py
-from app.config import SQLALCHEMY_DATABASE_URL, engine
+from contextlib import asynccontextmanager
+from app.database import engine
 from sqlmodel import SQLModel
+from app.routes.fornecedor import router as fornecedor_router   
+from app.routes.remedio import router as remedio_router   
+from app.routes.estoque import router as estoque_router   
 
-# Inicializando a aplicação FastAPI
-app = FastAPI()
-
-# Rota simples de Olá
-@app.get("/")
-def read_root():
-    return {"message": "Olá, o servidor está funcionando!"}
-
-# Incluindo todas as rotas definidas no router
-app.include_router(router)
-
-# Criação das tabelas no banco de dados
-@app.on_event("startup")
-def on_startup():
+# Função para criação do banco de dados e tabelas
+def create_db_and_tables():
     SQLModel.metadata.create_all(bind=engine)
+
+# Configurações de inicialização com ciclo de vida assíncrono
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    yield
+
+# Inicializa o aplicativo FastAPI
+app = FastAPI(lifespan=lifespan)
+
+# Inclui as rotas para os endpoints
+app.include_router(fornecedor_router)  # Incluindo o router de fornecedor
+app.include_router(remedio_router)  # Incluindo o router de remédio
+app.include_router(estoque_router)  # Incluindo o router de estoque
+
+# Rota Home de boas-vindas
+@app.get("/")
+def read_home():
+    return {"message": "Bem-vindo à API de gerenciamento de remédios!"}
