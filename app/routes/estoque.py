@@ -12,12 +12,12 @@ router = APIRouter()
 @router.post("/estoque/", response_model=Estoque)
 async def criar_estoque_view(estoque_data: dict, session: Session = Depends(get_session)):
     try:
-        # Verificar se o remedio_id existe
+   
         remedio = session.get(Remedio, estoque_data["remedio_id"])
         if not remedio:
             raise HTTPException(status_code=404, detail="Remédio não encontrado")
         
-        # Formatar datas
+      
         if "data_entrada_estoque" in estoque_data:
             estoque_data["data_entrada_estoque"] = datetime.fromisoformat(
                 estoque_data["data_entrada_estoque"].replace("Z", "+00:00")
@@ -26,8 +26,7 @@ async def criar_estoque_view(estoque_data: dict, session: Session = Depends(get_
             estoque_data["validade"] = datetime.fromisoformat(
                 estoque_data["validade"].replace("Z", "+00:00")
             )
-        
-        # Criar o novo estoque
+    
         novo_estoque = Estoque(**estoque_data)
         session.add(novo_estoque)
         session.commit()
@@ -55,11 +54,10 @@ async def atualizar_estoque_view(estoque_id: int, estoque_data: dict, session: S
         if not estoque:
             raise HTTPException(status_code=404, detail="Estoque não encontrado")
         
-        # Atualizar os campos
+       
         for key, value in estoque_data.items():
             setattr(estoque, key, value)
-
-        # Atualizar a data de modificação
+            
         estoque.updated_at = datetime.now(timezone.utc)
         
         session.commit()

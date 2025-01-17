@@ -96,6 +96,22 @@ async def listar_remedios_por_fornecedor_view(
     except SQLAlchemyError as e:
         raise HTTPException(status_code=400, detail="Erro ao listar os remédios: " + str(e))
 
+@router.get("/remedios/validade-preco/", response_model=list[Remedio])
+def busca_remedios_validade_preco(
+    preco_min: float = 0.0, 
+    preco_max: float = float("inf"),
+    validade_min: date = date.today(), 
+    validade_max: date = date.today(), 
+    session: Session = Depends(get_session)
+):
+    return session.exec(
+        select(Remedio).where(
+            Remedio.preco.between(preco_min, preco_max),
+            Remedio.validade.between(validade_min, validade_max)
+        )
+    ).all()
+
+
 
 @router.put("/remedio/{remedio_id}", response_model=Remedio)
 async def atualizar_remedio_view(remedio_id: int, remedio_data: dict, session: Session = Depends(get_session)):

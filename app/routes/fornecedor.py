@@ -1,9 +1,12 @@
 from fastapi import APIRouter, HTTPException, Depends
 from app.models.fornecedor import Fornecedor
+from app.models.remedio import Remedio
 from app.database import get_session   
 from sqlalchemy.orm import Session
 from sqlmodel import select
 from sqlalchemy.exc import SQLAlchemyError
+from typing import Optional
+
 
 router = APIRouter()
 
@@ -40,6 +43,23 @@ async def buscar_fornecedores_view(nome: str, session: Session = Depends(get_ses
         select(Fornecedor).where(Fornecedor.nome.contains(nome))
     ).all()
     return fornecedores
+
+@router.get("/fornecedor/{fornecedor_id}/remedios", response_model=list[Remedio])
+async def obter_remedios_por_fornecedor(fornecedor_id: int, session: Session = Depends(get_session)):
+    return session.exec(
+        select(Remedio).where(Remedio.fornecedor_id == fornecedor_id)
+    ).all()
+
+@router.get("/fornecedores/busca/nome-cnpj/", response_model=list[Fornecedor])
+async def buscar_fornecedores_por_nome_ou_cnpj(nome: Optional[str] = None, cnpj: Optional[str] = None, session: Session = Depends(get_session)):
+    query = select(Fornecedor)
+    if nome:
+        query = query.where(Fornecedor.nome.contains(nome))
+    if cnpj:
+        query = query.where(Fornecedor.cnpj.contains(cnpj))
+    
+    return session.exec(query).all()
+
 
 @router.put("/fornecedor/{fornecedor_id}", response_model=Fornecedor)
 async def atualizar_fornecedor_view(fornecedor_id: int, fornecedor_data: dict, session: Session = Depends(get_session)):
