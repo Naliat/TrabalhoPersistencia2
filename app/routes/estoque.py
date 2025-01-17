@@ -35,7 +35,7 @@ async def criar_estoque_view(estoque_data: dict, session: Session = Depends(get_
         return novo_estoque
     except SQLAlchemyError as e:
         session.rollback()
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail="Erro ao criar estoque: " + str(e))
 
 @router.get("/estoques/", response_model=list[Estoque])
 async def listar_estoques_view(session: Session = Depends(get_session)):
@@ -59,6 +59,7 @@ async def atualizar_estoque_view(estoque_id: int, estoque_data: dict, session: S
         for key, value in estoque_data.items():
             setattr(estoque, key, value)
 
+        # Atualizar a data de modificação
         estoque.updated_at = datetime.now(timezone.utc)
         
         session.commit()
@@ -66,7 +67,7 @@ async def atualizar_estoque_view(estoque_id: int, estoque_data: dict, session: S
         return estoque
     except SQLAlchemyError as e:
         session.rollback()
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail="Erro ao atualizar estoque: " + str(e))
 
 @router.delete("/estoque/{estoque_id}", response_model=dict)
 async def deletar_estoque_view(estoque_id: int, session: Session = Depends(get_session)):
@@ -80,4 +81,4 @@ async def deletar_estoque_view(estoque_id: int, session: Session = Depends(get_s
         return {"detail": "Estoque deletado com sucesso"}
     except SQLAlchemyError as e:
         session.rollback()
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail="Erro ao deletar estoque: " + str(e))
