@@ -1,194 +1,96 @@
-# Aplicação FastAPI para Gerenciamento de Fornecedores
+Rotas de Estoque
+Criar estoque
 
-## Descrição
+Método: POST
+URL: /estoque/
+Descrição: Cria um novo registro de estoque.
+Listar todos os estoques
 
-Esta aplicação, desenvolvida com **FastAPI**, utiliza **SQLModel** e **SQLite** para gerenciar informações de fornecedores. A API permite realizar operações CRUD (Create, Read, Update, Delete) e inclui consultas avançadas, como a busca de fornecedores por nome ou CNPJ.
+Método: GET
+URL: /estoques/
+Descrição: Retorna uma lista de todos os estoques.
+Obter estoque específico
 
-A estrutura segue uma abordagem modular, com separação clara de responsabilidades em arquivos como `models`, `crud`, `routes` e `config`.
+Método: GET
+URL: /estoque/{estoque_id}
+Descrição: Retorna os detalhes de um estoque específico pelo ID.
+Atualizar estoque
 
----
+Método: PUT
+URL: /estoque/{estoque_id}
+Descrição: Atualiza os dados de um estoque específico.
+Deletar estoque
 
-## Configuração do Projeto
+Método: DELETE
+URL: /estoque/{estoque_id}
+Descrição: Remove um estoque específico pelo ID.
+Rotas de Fornecedor
+Criar fornecedor
 
-### Requisitos
-- Python 3.10+
-- FastAPI
-- SQLModel
-- SQLite
-- Gerenciador de dependências `uv`
+Método: POST
+URL: /fornecedor/
+Descrição: Cria um novo fornecedor.
+Listar todos os fornecedores
 
-### Instalação
+Método: GET
+URL: /fornecedores/
+Descrição: Retorna uma lista de todos os fornecedores.
+Obter fornecedor específico
 
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/Naliat/TrabalhoPersistencia2.git
-   cd TrabalhoPersistencia2
-   ```
+Método: GET
+URL: /fornecedor/{fornecedor_id}
+Descrição: Retorna os detalhes de um fornecedor específico pelo ID.
+Buscar fornecedores por nome
 
-2. Instale as dependências:
-   ```bash
-   uv install
-   ```
+Método: GET
+URL: /fornecedores/busca/
+Parâmetro: nome (str)
+Descrição: Busca fornecedores pelo nome.
+Atualizar fornecedor
 
-3. Execute a aplicação:
-   ```bash
-   uv run app.main:app --reload
-   ```
+Método: PUT
+URL: /fornecedor/{fornecedor_id}
+Descrição: Atualiza os dados de um fornecedor específico.
+Deletar fornecedor
 
-4. Acesse a documentação interativa da API no navegador:
-   - Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-   - Redoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+Método: DELETE
+URL: /fornecedor/{fornecedor_id}
+Descrição: Remove um fornecedor específico pelo ID.
+Rotas de Remédio
+Adicionar remédio(s)
 
----
+Método: POST
+URL: /remedios/
+Descrição: Adiciona um ou mais remédios.
+Listar todos os remédios
 
-## Como Testar Usando o Postman
+Método: GET
+URL: /remedios/
+Descrição: Retorna uma lista de todos os remédios.
+Obter remédio específico
 
-### Passo a Passo
+Método: GET
+URL: /remedio/{remedio_id}
+Descrição: Retorna os detalhes de um remédio específico pelo ID.
+Buscar remédios por nome
 
-1. **Configure o ambiente no Postman:**
-   - Crie uma nova coleção no Postman.
-   - Adicione a URL base da API: `http://127.0.0.1:8000`.
+Método: GET
+URL: /remedios/busca/
+Parâmetro: nome (str)
+Descrição: Busca remédios pelo nome.
+Listar remédios por validade
 
-2. **Testando os Endpoints:**
+Método: GET
+URL: /remedios/validade/
+Parâmetro: ano (int)
+Descrição: Lista remédios cuja validade pertence ao ano fornecido.
+Listar remédios por fornecedor
 
-#### **1. Adicionar um Fornecedor**
-- **Método:** `POST`
-- **Endpoint:** `/fornecedores/`
-- **Body (JSON):**
-  ```json
-  {
-      "nome": "Fornecedor A",
-      "cnpj": "12345678000100",
-      "telefone": "11 98765-4321",
-      "endereco": "Rua A, 123, Bairro A, São Paulo, SP"
-  }
-  ```
-- **Resposta esperada:**
-  ```json
-  {
-      "id": 1,
-      "nome": "Fornecedor A",
-      "cnpj": "12345678000100",
-      "telefone": "11 98765-4321",
-      "endereco": "Rua A, 123, Bairro A, São Paulo, SP"
-  }
-  ```
+Método: GET
+URL: /fornecedor/{fornecedor_id}/remedios/
+Descrição: Lista os remédios fornecidos por um fornecedor específico.
+Atualizar remédio
 
-#### **2. Listar Todos os Fornecedores**
-- **Método:** `GET`
-- **Endpoint:** `/fornecedores/`
-- **Resposta esperada:**
-  ```json
-  [
-      {
-          "id": 1,
-          "nome": "Fornecedor A",
-          "cnpj": "12345678000100",
-          "telefone": "11 98765-4321",
-          "endereco": "Rua A, 123, Bairro A, São Paulo, SP"
-      }
-  ]
-  ```
-
-#### **3. Buscar Fornecedores por Nome ou CNPJ**
-- **Método:** `GET`
-- **Endpoint:** `/fornecedores/busca/nome-cnpj/`
-- **Query Parameters:**
-  - `nome`: (opcional) Por exemplo, `Fornecedor A`
-  - `cnpj`: (opcional) Por exemplo, `12345678000100`
-- **Exemplo de URL:**
-  ```
-  http://127.0.0.1:8000/fornecedores/busca/nome-cnpj/?nome=Fornecedor%20A
-  ```
-- **Resposta esperada:**
-  ```json
-  [
-      {
-          "id": 1,
-          "nome": "Fornecedor A",
-          "cnpj": "12345678000100",
-          "telefone": "11 98765-4321",
-          "endereco": "Rua A, 123, Bairro A, São Paulo, SP"
-      }
-  ]
-  ```
-
-#### **4. Atualizar um Fornecedor**
-- **Método:** `PUT`
-- **Endpoint:** `/fornecedores/{id}`
-- **Body (JSON):**
-  ```json
-  {
-      "nome": "Fornecedor A Modificado",
-      "cnpj": "12345678000100",
-      "telefone": "11 98765-9999",
-      "endereco": "Rua A, 123, Bairro A, São Paulo, SP"
-  }
-  ```
-- **Resposta esperada:**
-  ```json
-  {
-      "id": 1,
-      "nome": "Fornecedor A Modificado",
-      "cnpj": "12345678000100",
-      "telefone": "11 98765-9999",
-      "endereco": "Rua A, 123, Bairro A, São Paulo, SP"
-  }
-  ```
-
-#### **5. Deletar um Fornecedor**
-- **Método:** `DELETE`
-- **Endpoint:** `/fornecedores/{id}`
-- **Exemplo:**
-  ```
-  http://127.0.0.1:8000/fornecedores/1
-  ```
-- **Resposta esperada:**
-  ```json
-  {
-      "message": "Fornecedor deletado com sucesso."
-  }
-  ```
-
----
-
-## Estrutura de Dados de Teste
-
-### Fornecedores Preexistentes
-A base de dados inicial contém os seguintes fornecedores para teste:
-
-```json
-[
-    {
-        "id": 1,
-        "nome": "Fornecedor A",
-        "cnpj": "12345678000100",
-        "telefone": "11 98765-4321",
-        "endereco": "Rua A, 123, Bairro A, São Paulo, SP"
-    },
-    {
-        "id": 2,
-        "nome": "Fornecedor B",
-        "cnpj": "98765432000199",
-        "telefone": "11 99876-5432",
-        "endereco": "Rua B, 456, Bairro B, São Paulo, SP"
-    }
-]
-```
-
----
-
-## Observações
-- Certifique-se de que o servidor está em execução antes de realizar os testes.
-- Utilize o Swagger UI para explorar e testar os endpoints de maneira interativa.
-- Para questões ou problemas, abra uma *issue* no repositório GitHub.
-
----
-
-## Autor
-Tailan
-
----
-
-## Licença
-Este projeto está sob a licença MIT. Consulte o arquivo `LICENSE` para mais informações.
+Método: PUT
+URL: /remedio/{remedio_id}
+Descrição: Atualiza os dados de um remédio específico.
