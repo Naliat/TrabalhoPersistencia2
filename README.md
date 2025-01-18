@@ -24,18 +24,20 @@ A estrutura segue uma abordagem modular, com separação clara de responsabilida
    git clone https://github.com/Naliat/TrabalhoPersistencia2.git
    cd TrabalhoPersistencia2
    ```
-
-2. Instale as dependências:
+2. Ativar o ambiente virtual
+```  
+source .venv/bin/activate
+```
+3. Instale as dependências:
    ```bash
    uv install
    ```
-
-3. Execute a aplicação:
+4. Execute a aplicação:
    ```bash
    uv run app.main:app --reload
    ```
 
-4. Acesse a documentação interativa da API no navegador:
+5. Acesse a documentação interativa da API no navegador:
    - Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
    - Redoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
