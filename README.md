@@ -1,4 +1,10 @@
+# Aplicação FastAPI para Gerenciamento de Remédios
 
+## Descrição
+
+Esta aplicação, desenvolvida com **FastAPI**, utiliza **SQLModel** e **SQLite** para gerenciar informações de remédios. A API permite realizar operações CRUD (Create, Read, Update, Delete) e inclui consultas avançadas, como a busca de fornecedores por nome ou CNPJ.
+
+A estrutura segue uma abordagem modular, com separação clara de responsabilidades em arquivos como `models` e `routes` 
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -49,14 +55,8 @@ Muitos para Um: Vários remédios podem ser fornecidos por um único fornecedor.
 Um para Muitos: Um remédio pode estar presente em vários estoques. Isso significa que um registro em Remedio pode estar associado a múltiplos registros em Estoque.
 
 ### Estoque:
+
 Muitos para Um: Vários estoques podem conter o mesmo remédio. Isso significa que vários registros em Estoque podem estar associados a um único registro em Remedio.
-# Aplicação FastAPI para Gerenciamento de Remédios
-
-## Descrição
-
-Esta aplicação, desenvolvida com **FastAPI**, utiliza **SQLModel** e **SQLite** para gerenciar informações de remédios. A API permite realizar operações CRUD (Create, Read, Update, Delete) e inclui consultas avançadas, como a busca de fornecedores por nome ou CNPJ.
-
-A estrutura segue uma abordagem modular, com separação clara de responsabilidades em arquivos como `models` e `routes` 
 
 ---
 
@@ -312,30 +312,6 @@ uv run app.main:app --reload
 
 ## Estrutura de Dados de Teste
 
-### Fornecedores Preexistentes
-A base de dados inicial contém os seguintes fornecedores para teste:
-
-```json
-[
-    {
-        "id": 1,
-        "nome": "Fornecedor A",
-        "cnpj": "12345678000100",
-        "telefone": "11 98765-4321",
-        "endereco": "Rua A, 123, Bairro A, São Paulo, SP"
-    },
-    {
-        "id": 2,
-        "nome": "Fornecedor B",
-        "cnpj": "98765432000199",
-        "telefone": "11 99876-5432",
-        "endereco": "Rua B, 456, Bairro B, São Paulo, SP"
-    }
-]
-```
-
----
-
 ## População estoque
 ```
 [
@@ -401,10 +377,80 @@ A base de dados inicial contém os seguintes fornecedores para teste:
   }
 ]
 ```
-
-
 ### Populando a entidade Remédio
 ```
+[
+  {
+    "nome": "Paracetamol",
+    "descricao": "Analgésico e antipirético",
+    "preco": 10.50,
+    "validade": "2025-12-31",
+    "fornecedor_id": 1
+  },
+  {
+    "nome": "Ibuprofeno",
+    "descricao": "Anti-inflamatório",
+    "preco": 15.75,
+    "validade": "2026-06-30",
+    "fornecedor_id": 2
+  },
+  {
+    "nome": "Amoxicilina",
+    "descricao": "Antibiótico",
+    "preco": 20.00,
+    "validade": "2025-10-15",
+    "fornecedor_id": 3
+  },
+  {
+    "nome": "Cetirizina",
+    "descricao": "Antialérgico",
+    "preco": 12.30,
+    "validade": "2026-03-28",
+    "fornecedor_id": 4
+  },
+  {
+    "nome": "Dipirona",
+    "descricao": "Analgesia e febre",
+    "preco": 8.90,
+    "validade": "2025-05-10",
+    "fornecedor_id": 1
+  },
+  {
+    "nome": "Omeprazol",
+    "descricao": "Inibidor da bomba de prótons",
+    "preco": 22.40,
+    "validade": "2026-07-22",
+    "fornecedor_id": 2
+  },
+  {
+    "nome": "Furosemida",
+    "descricao": "Diurético",
+    "preco": 11.10,
+    "validade": "2025-11-11",
+    "fornecedor_id": 3
+  },
+  {
+    "nome": "Loratadina",
+    "descricao": "Antihistamínico",
+    "preco": 9.80,
+    "validade": "2026-09-18",
+    "fornecedor_id": 4
+  },
+  {
+    "nome": "Clonazepam",
+    "descricao": "Ansiolítico",
+    "preco": 18.50,
+    "validade": "2026-01-15",
+    "fornecedor_id": 1
+  },
+  {
+    "nome": "Losartana",
+    "descricao": "Antihipertensivo",
+    "preco": 17.30,
+    "validade": "2025-04-20",
+    "fornecedor_id": 2
+  }
+]
 
 ```
 
