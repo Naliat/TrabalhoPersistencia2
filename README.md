@@ -1,7 +1,6 @@
-# Meu Projeto
+
 
 ## Diagrama de Relacionamentos
-
 ```mermaid
 classDiagram
     direction LR
@@ -39,9 +38,18 @@ classDiagram
     Fornecedor "1" --> "0..*" Remedio: fornece
     Remedio "1" --> "0..*" Estoque: possui
     Estoque "0..*" --> "1" Remedio: armazena
-
 ```
+### Descrição verbal referente a parte do diagrama
 
+### Fornecedor:
+Um para Muitos: Um fornecedor pode fornecer vários remédios. Isso significa que um registro em Fornecedor pode estar associado a múltiplos registros em Remedio.
+
+### Remedio:
+Muitos para Um: Vários remédios podem ser fornecidos por um único fornecedor. Isso significa que vários registros em Remedio podem estar associados a um único registro em Fornecedor.
+Um para Muitos: Um remédio pode estar presente em vários estoques. Isso significa que um registro em Remedio pode estar associado a múltiplos registros em Estoque.
+
+### Estoque:
+Muitos para Um: Vários estoques podem conter o mesmo remédio. Isso significa que vários registros em Estoque podem estar associados a um único registro em Remedio.
 # Aplicação FastAPI para Gerenciamento de Remédios
 
 ## Descrição
