@@ -20,23 +20,22 @@ A estrutura segue uma abordagem modular, com separação clara de responsabilida
 ### Instalação
 
 1. Clone o repositório:
-   ```bash
-   git clone https://github.com/Naliat/TrabalhoPersistencia2.git
-   cd TrabalhoPersistencia2
-   ```
+```
+git clone https://github.com/Naliat/TrabalhoPersistencia2.git
+cd TrabalhoPersistencia2
+```
 2. Ativar o ambiente virtual
 ```  
 source .venv/bin/activate
 ```
 3. Instale as dependências:
-   ```bash
-   uv install
-   ```
+```
+uv install
+```
 4. Execute a aplicação:
-   ```bash
-   uv run app.main:app --reload
-   ```
-
+```
+uv run app.main:app --reload
+```
 5. Acesse a documentação interativa da API no navegador:
    - Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
    - Redoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
