@@ -1,0 +1,9 @@
+Tailan -> Refatoração do codigo e revisão final
+Tailan -> Documentação das rotas
+Tailan -> Routes
+Tailan -> Main e questões de banco de dados
+Kaio -> Models
+Kaio -> Criação da documentação do read.me
+Kaio -> população das entidades
+Kaio e Tailan -> Questões de entidades e seus atributos  
+
