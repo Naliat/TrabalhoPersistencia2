@@ -1,10 +1,10 @@
-# Aplicação FastAPI para Gerenciamento de Fornecedores
+# Aplicação FastAPI para Gerenciamento de Remédios
 
 ## Descrição
 
 Esta aplicação, desenvolvida com **FastAPI**, utiliza **SQLModel** e **SQLite** para gerenciar informações de fornecedores. A API permite realizar operações CRUD (Create, Read, Update, Delete) e inclui consultas avançadas, como a busca de fornecedores por nome ou CNPJ.
 
-A estrutura segue uma abordagem modular, com separação clara de responsabilidades em arquivos como `models`, `crud`, `routes` e `config`.
+A estrutura segue uma abordagem modular, com separação clara de responsabilidades em arquivos como `models` e `routes` 
 
 ---
 
