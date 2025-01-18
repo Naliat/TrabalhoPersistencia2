@@ -312,71 +312,6 @@ uv run app.main:app --reload
 
 ## Estrutura de Dados de Teste
 
-## População estoque
-```
-[
-  {
-    "remedio_id": 1,
-    "quantidade": 100,
-    "data_entrada_estoque": "2025-01-01T12:00:00Z",
-    "validade": "2025-12-31T23:59:59Z"
-  },
-  {
-    "remedio_id": 2,
-    "quantidade": 200,
-    "data_entrada_estoque": "2025-01-02T10:00:00Z",
-    "validade": "2026-01-01T23:59:59Z"
-  },
-  {
-    "remedio_id": 3,
-    "quantidade": 50,
-    "data_entrada_estoque": "2025-01-03T09:00:00Z",
-    "validade": "2025-09-01T23:59:59Z"
-  },
-  {
-    "remedio_id": 4,
-    "quantidade": 75,
-    "data_entrada_estoque": "2025-01-04T08:00:00Z",
-    "validade": "2025-08-01T23:59:59Z"
-  },
-  {
-    "remedio_id": 5,
-    "quantidade": 120,
-    "data_entrada_estoque": "2025-01-05T07:30:00Z",
-    "validade": "2025-07-01T23:59:59Z"
-  },
-  {
-    "remedio_id": 6,
-    "quantidade": 90,
-    "data_entrada_estoque": "2025-01-06T14:00:00Z",
-    "validade": "2026-02-01T23:59:59Z"
-  },
-  {
-    "remedio_id": 7,
-    "quantidade": 60,
-    "data_entrada_estoque": "2025-01-07T13:00:00Z",
-    "validade": "2025-06-01T23:59:59Z"
-  },
-  {
-    "remedio_id": 8,
-    "quantidade": 150,
-    "data_entrada_estoque": "2025-01-08T11:00:00Z",
-    "validade": "2026-03-01T23:59:59Z"
-  },
-  {
-    "remedio_id": 9,
-    "quantidade": 40,
-    "data_entrada_estoque": "2025-01-09T15:00:00Z",
-    "validade": "2025-05-01T23:59:59Z"
-  },
-  {
-    "remedio_id": 10,
-    "quantidade": 300,
-    "data_entrada_estoque": "2025-01-10T16:00:00Z",
-    "validade": "2026-04-01T23:59:59Z"
-  }
-]
-```
 ### Populando a entidade Remédio
 ```
 [
@@ -558,32 +493,10 @@ uv run app.main:app --reload
         "descricao": "Antiácido",
         "preco": 18.0,
         "updated_at": "2025-01-17T19:26:42.866151"
-    },
-    {
-        "id": 11,
-        "validade": "2025-12-31",
-        "created_at": "2025-01-17T23:08:26.824151",
-        "fornecedor_id": 1,
-        "nome": "Dipirona",
-        "descricao": "Analgésico e antipirético",
-        "preco": 10.5,
-        "updated_at": "2025-01-17T23:08:26.824165"
-    },
-    {
-        "id": 12,
-        "validade": "2025-12-31",
-        "created_at": "2025-01-17T23:08:38.651943",
-        "fornecedor_id": 1,
-        "nome": "Dipirona",
-        "descricao": "Analgésico e antipirético",
-        "preco": 10.5,
-        "updated_at": "2025-01-17T23:08:38.651956"
     }
 ]
 ```
-
-Populando tabela fornecedor
-
+Populando entidade fornecedor
 ```
 [
   {
@@ -659,9 +572,7 @@ Populando tabela fornecedor
 ]
 
 ```
-
-Resultado esperado aṕos popular aa entidade Fornecedor
-
+Resultado esperado aṕos popular a entidade Fornecedor
 ```
 [
     {
@@ -736,9 +647,7 @@ Resultado esperado aṕos popular aa entidade Fornecedor
     }
 ]
 ```
-
 ### Populando a entidade Estoque
-
 ```
 [
   {
@@ -804,7 +713,6 @@ Resultado esperado aṕos popular aa entidade Fornecedor
 ]
 ```
 ### Resultado esperado aṕos popular a entidade estoque
-
 ```
 [
     {
