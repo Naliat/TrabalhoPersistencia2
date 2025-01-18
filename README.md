@@ -488,10 +488,82 @@ A base de dados inicial contém os seguintes fornecedores para teste:
 Populando tabela fornecedor
 
 ```
+[
+  {
+    "id": 1,
+    "nome": "Fornecedor A",
+    "cnpj": "12345678000100",
+    "telefone": "11 98765-4321",
+    "endereco": "Rua A, 123, Bairro A, São Paulo, SP"
+  },
+  {
+    "id": 2,
+    "nome": "Fornecedor B",
+    "cnpj": "98765432000199",
+    "telefone": "11 99876-5432",
+    "endereco": "Rua B, 456, Bairro B, São Paulo, SP"
+  },
+  {
+    "id": 3,
+    "nome": "Fornecedor C",
+    "cnpj": "45678912000158",
+    "telefone": "21 99887-6543",
+    "endereco": "Avenida C, 789, Bairro C, Rio de Janeiro, RJ"
+  },
+  {
+    "id": 4,
+    "nome": "Fornecedor D",
+    "cnpj": "34567891000123",
+    "telefone": "21 97765-4321",
+    "endereco": "Rua D, 101, Bairro D, Rio de Janeiro, RJ"
+  },
+  {
+    "id": 5,
+    "nome": "Fornecedor E",
+    "cnpj": "56789012345678",
+    "telefone": "31 98876-5432",
+    "endereco": "Praça E, 123, Bairro E, Belo Horizonte, MG"
+  },
+  {
+    "id": 6,
+    "nome": "Fornecedor F",
+    "cnpj": "12349012347898",
+    "telefone": "41 98765-9876",
+    "endereco": "Rua F, 321, Bairro F, Curitiba, PR"
+  },
+  {
+    "id": 7,
+    "nome": "Fornecedor G",
+    "cnpj": "65431208765432",
+    "telefone": "61 97765-4321",
+    "endereco": "Rua G, 432, Bairro G, Brasília, DF"
+  },
+  {
+    "id": 8,
+    "nome": "Fornecedor H",
+    "cnpj": "23456789001234",
+    "telefone": "51 99665-4321",
+    "endereco": "Avenida H, 654, Bairro H, Porto Alegre, RS"
+  },
+  {
+    "id": 9,
+    "nome": "Fornecedor I",
+    "cnpj": "76543210987654",
+    "telefone": "48 99664-3322",
+    "endereco": "Rua I, 789, Bairro I, Florianópolis, SC"
+  },
+  {
+    "id": 10,
+    "nome": "Fornecedor J",
+    "cnpj": "87654321000012",
+    "telefone": "85 98876-5432",
+    "endereco": "Rua J, 567, Bairro J, Fortaleza, CE"
+  }
+]
 
 ```
 
-Resultado esperado população da tabela fornecedor
+Resultado esperado aṕos popular aa entidade Fornecedor
 
 ```
 [
@@ -568,7 +640,7 @@ Resultado esperado população da tabela fornecedor
 ]
 ```
 
-### Populando a entidade estoque
+### Populando a entidade Estoque
 
 ```
 [
