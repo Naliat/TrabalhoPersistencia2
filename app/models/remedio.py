@@ -10,7 +10,7 @@ class RemedioBase(SQLModel):
     id: Optional[int] = Field(default=None, primary_key=True)
     nome: str
     descricao: str
-    validade: date  # Agora validade é um campo de tipo date
+    validade: date  
     preco: float
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

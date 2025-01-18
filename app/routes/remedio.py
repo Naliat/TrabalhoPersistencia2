@@ -20,7 +20,6 @@ class RemedioCreate(BaseModel):
     class Config:
         from_attributes = True
 
-
 @router.post("/remedios/", response_model=dict)
 def add_remedios(remedios: list[RemedioCreate] | RemedioCreate, session: Session = Depends(get_session)):
     # Verifica se remédios é uma lista. Se não, coloca em uma lista.
@@ -46,52 +45,40 @@ def add_remedios(remedios: list[RemedioCreate] | RemedioCreate, session: Session
         novos_remedios.append(novo_remedio)
 
     try:
-        session.commit()  # Commit dentro do try-except para pegar possíveis falhas
+        session.commit() 
     except SQLAlchemyError as e:
         session.rollback()
         raise HTTPException(status_code=400, detail="Erro ao salvar os remédios: " + str(e))
-
-    # Mensagem de sucesso
     return {"detail": f"{len(novos_remedios)} remédios adicionados com sucesso", "remedios": novos_remedios}
-
 
 @router.get("/remedios/", response_model=list[Remedio])
 async def listar_remedios_view(session: Session = Depends(get_session)):
     return session.exec(select(Remedio)).all()  # Listar todos os remédios
-
 
 @router.get("/remedio/{remedio_id}", response_model=Remedio)
 async def obter_remedio_view(remedio_id: int, session: Session = Depends(get_session)):
     remedio = session.get(Remedio, remedio_id)
     if not remedio:
         raise HTTPException(status_code=404, detail="Remédio não encontrado")
-    return remedio  # Retornar o remédio específico
-
+    return remedio  
 
 @router.get("/remedios/busca/", response_model=list[Remedio])
 async def buscar_remedios_view(nome: str, session: Session = Depends(get_session)):
     remedios = session.exec(select(Remedio).where(Remedio.nome.contains(nome))).all()
-    return remedios  # Buscar remédios pelo nome
-
+    return remedios   
 
 @router.get("/remedios/validade/")
-async def listar_remedios_validade_view(ano: int, db: Session = Depends(get_session)):
+async def listar_remedios_validade_view(ano: int, session: Session = Depends(get_session)):
     try:
-        # Ajuste na consulta para extrair corretamente o ano da validade
-        remedios = db.query(Remedio).filter(func.extract('year', Remedio.validade) == ano).all()
+        remedios = session.exec(select(Remedio).where(func.extract('year', Remedio.validade) == ano)).all()
         return remedios
     except SQLAlchemyError as e:
         raise HTTPException(status_code=400, detail="Erro ao consultar os remédios: " + str(e))
 
-
 @router.get("/fornecedor/{fornecedor_id}/remedios/", response_model=list[Remedio])
-async def listar_remedios_por_fornecedor_view(
-    fornecedor_id: int, session: Session = Depends(get_session)
-):
+async def listar_remedios_por_fornecedor_view(fornecedor_id: int, session: Session = Depends(get_session)):
     try:
-        remedios = session.exec(
-            select(Remedio).where(Remedio.fornecedor_id == fornecedor_id)
-        ).all()
+        remedios = session.exec(select(Remedio).where(Remedio.fornecedor_id == fornecedor_id)).all()
         return remedios  # Listar remédios de um fornecedor específico
     except SQLAlchemyError as e:
         raise HTTPException(status_code=400, detail="Erro ao listar os remédios: " + str(e))
@@ -110,8 +97,6 @@ def busca_remedios_validade_preco(
             Remedio.validade.between(validade_min, validade_max)
         )
     ).all()
-
-
 
 @router.put("/remedio/{remedio_id}", response_model=Remedio)
 async def atualizar_remedio_view(remedio_id: int, remedio_data: dict, session: Session = Depends(get_session)):
@@ -136,6 +121,7 @@ async def atualizar_remedio_view(remedio_id: int, remedio_data: dict, session: S
     except SQLAlchemyError as e:
         session.rollback()  # Reverter a transação em caso de erro
         raise HTTPException(status_code=400, detail="Erro ao atualizar o remédio: " + str(e))  # Retornar erro ao usuário
+
 @router.delete("/remedio/{remedio_id}", response_model=dict)
 async def deletar_remedio_view(remedio_id: int, session: Session = Depends(get_session)):
     try:
@@ -148,4 +134,4 @@ async def deletar_remedio_view(remedio_id: int, session: Session = Depends(get_s
         return {"detail": "Remédio deletado com sucesso"}  # Confirmar exclusão
     except SQLAlchemyError as e:
         session.rollback()  # Reverter a transação em caso de erro
-        raise HTTPException(status_code=400, detail="Erro ao deletar o remédio: " + str(e))  # Retornar erro ao usuário
+        raise HTTPException(status_code=400, detail="Erro ao deletar o remédio: " + str(e))

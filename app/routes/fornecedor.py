@@ -67,8 +67,7 @@ async def atualizar_fornecedor_view(fornecedor_id: int, fornecedor_data: dict, s
         fornecedor = session.get(Fornecedor, fornecedor_id)
         if not fornecedor:
             raise HTTPException(status_code=404, detail="Fornecedor não encontrado")
-        
-        # Atualizar os campos
+      
         for key, value in fornecedor_data.items():
             setattr(fornecedor, key, value)
         
