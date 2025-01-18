@@ -128,10 +128,10 @@ async def deletar_remedio_view(remedio_id: int, session: Session = Depends(get_s
         remedio = session.get(Remedio, remedio_id)
         if not remedio:
             raise HTTPException(status_code=404, detail="Remédio não encontrado")
-        
-        session.delete(remedio)  # Deletar o remédio
+
+        session.delete(remedio)  # Deletar o remédio (estoques associados serão deletados em cascata)
         session.commit()  # Confirmar a transação
-        return {"detail": "Remédio deletado com sucesso"}  # Confirmar exclusão
+        return {"detail": "Remédio e estoques associados deletados com sucesso"}
     except SQLAlchemyError as e:
         session.rollback()  # Reverter a transação em caso de erro
         raise HTTPException(status_code=400, detail="Erro ao deletar o remédio: " + str(e))

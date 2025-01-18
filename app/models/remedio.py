@@ -1,6 +1,8 @@
 from datetime import datetime, timezone, date
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List, TYPE_CHECKING
+from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, ForeignKey
 
 if TYPE_CHECKING:
     from .fornecedor import Fornecedor
@@ -10,7 +12,7 @@ class RemedioBase(SQLModel):
     id: Optional[int] = Field(default=None, primary_key=True)
     nome: str
     descricao: str
-    validade: date  
+    validade: date
     preco: float
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
@@ -18,4 +20,4 @@ class RemedioBase(SQLModel):
 class Remedio(RemedioBase, table=True):
     fornecedor_id: int = Field(foreign_key="fornecedor.id")
     fornecedor: "Fornecedor" = Relationship(back_populates="remedios")
-    estoques: List["Estoque"] = Relationship(back_populates="remedio")
+    estoques: List["Estoque"] = Relationship(back_populates="remedio", sa_relationship_kwargs={"cascade": "all, delete-orphan"})
