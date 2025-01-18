@@ -283,12 +283,80 @@ A base de dados inicial contém os seguintes fornecedores para teste:
 
 ---
 
-## Observações
-- Certifique-se de que o servidor está em execução antes de realizar os testes.
-- Utilize o Swagger UI para explorar e testar os endpoints de maneira interativa.
-- Para questões ou problemas, abra uma *issue* no repositório GitHub.
+## População estoque
+```
+[
+  {
+    "remedio_id": 1,
+    "quantidade": 100,
+    "data_entrada_estoque": "2025-01-01T12:00:00Z",
+    "validade": "2025-12-31T23:59:59Z"
+  },
+  {
+    "remedio_id": 2,
+    "quantidade": 200,
+    "data_entrada_estoque": "2025-01-02T10:00:00Z",
+    "validade": "2026-01-01T23:59:59Z"
+  },
+  {
+    "remedio_id": 3,
+    "quantidade": 50,
+    "data_entrada_estoque": "2025-01-03T09:00:00Z",
+    "validade": "2025-09-01T23:59:59Z"
+  },
+  {
+    "remedio_id": 4,
+    "quantidade": 75,
+    "data_entrada_estoque": "2025-01-04T08:00:00Z",
+    "validade": "2025-08-01T23:59:59Z"
+  },
+  {
+    "remedio_id": 5,
+    "quantidade": 120,
+    "data_entrada_estoque": "2025-01-05T07:30:00Z",
+    "validade": "2025-07-01T23:59:59Z"
+  },
+  {
+    "remedio_id": 6,
+    "quantidade": 90,
+    "data_entrada_estoque": "2025-01-06T14:00:00Z",
+    "validade": "2026-02-01T23:59:59Z"
+  },
+  {
+    "remedio_id": 7,
+    "quantidade": 60,
+    "data_entrada_estoque": "2025-01-07T13:00:00Z",
+    "validade": "2025-06-01T23:59:59Z"
+  },
+  {
+    "remedio_id": 8,
+    "quantidade": 150,
+    "data_entrada_estoque": "2025-01-08T11:00:00Z",
+    "validade": "2026-03-01T23:59:59Z"
+  },
+  {
+    "remedio_id": 9,
+    "quantidade": 40,
+    "data_entrada_estoque": "2025-01-09T15:00:00Z",
+    "validade": "2025-05-01T23:59:59Z"
+  },
+  {
+    "remedio_id": 10,
+    "quantidade": 300,
+    "data_entrada_estoque": "2025-01-10T16:00:00Z",
+    "validade": "2026-04-01T23:59:59Z"
+  }
+]
+```
 
----
+População da entidade Remédio
 
-## Autor
-Tailan
+```
+
+```
+
+População da tabela fornecedor
+
+```
+
+```

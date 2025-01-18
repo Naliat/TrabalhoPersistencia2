@@ -18,7 +18,7 @@ class RemedioCreate(BaseModel):
     fornecedor_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 @router.post("/remedios/", response_model=dict)
