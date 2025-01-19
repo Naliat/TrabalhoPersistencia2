@@ -82,7 +82,7 @@ source .venv/bin/activate
 ```
 3. Instale as dependências:
 ```
-uv install
+uv add pyproject
 ```
 4. Execute a aplicação:
 ```
