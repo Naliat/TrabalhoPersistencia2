@@ -14,6 +14,26 @@ router = APIRouter()
 async def criar_fornecedor_view(
     fornecedor_data: dict, session: Session = Depends(get_session)
 ):
+    cnpj = fornecedor_data.get("cnpj")
+    telefone = fornecedor_data.get("telefone")
+    endereco = fornecedor_data.get("endereco")
+    nome = fornecedor_data.get("nome")
+
+    # Validação do CNPJ
+    if not cnpj or len(cnpj) != 14:
+        raise HTTPException(status_code=400, detail="CNPJ deve conter 14 dígitos.")
+
+    # Verificar se fornecedor já existe com os mesmos dados
+    fornecedor_existente = session.query(Fornecedor).filter(
+        Fornecedor.cnpj == cnpj,
+        Fornecedor.telefone == telefone,
+        Fornecedor.endereco == endereco,
+        Fornecedor.nome == nome
+    ).first()
+
+    if fornecedor_existente:
+        raise HTTPException(status_code=400, detail="Fornecedor já cadastrado com esses mesmos dados.")
+
     try:
         novo_fornecedor = Fornecedor(**fornecedor_data)
         session.add(novo_fornecedor)
@@ -23,6 +43,12 @@ async def criar_fornecedor_view(
     except SQLAlchemyError as e:
         session.rollback()
         raise HTTPException(status_code=400, detail=str(e))
+
+
+
+
+
+
 
 @router.get("/fornecedores/", response_model=list[Fornecedor])
 async def listar_fornecedores_view(session: Session = Depends(get_session)):

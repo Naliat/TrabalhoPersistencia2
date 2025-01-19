@@ -31,10 +31,10 @@ def get_session() -> Session:
     return Session(engine)
 
 
-# Configuração específica para SQLite (habilitar suporte a chaves estrangeiras)
+ 
 @event.listens_for(Engine, "connect")
 def set_sqlite_pragma(dbapi_connection, connection_record):
-    if type(dbapi_connection) is sqlite3.Connection:  # Somente para SQLite
+    if type(dbapi_connection) is sqlite3.Connection:   
         cursor = dbapi_connection.cursor()
-        cursor.execute("PRAGMA foreign_keys=ON")  # Ativa suporte a chaves estrangeiras
+        cursor.execute("PRAGMA foreign_keys=ON")
         cursor.close()

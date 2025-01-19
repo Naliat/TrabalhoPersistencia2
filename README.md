@@ -6,7 +6,7 @@ Esta aplicação, desenvolvida com **FastAPI**, utiliza **SQLModel** e **SQLite*
 
 A estrutura segue uma abordagem modular, com separação clara de responsabilidades em arquivos como `models` e `routes` 
 
-## Diagrama de Relacionamentos
+## Diagrama de Classes UML
 ```mermaid
 classDiagram
     direction LR
